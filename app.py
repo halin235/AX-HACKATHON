@@ -91,7 +91,7 @@ uploaded = st.file_uploader(
     ),
 )
 
-file_valid = False  # 이 렌더링 사이클에서 업로드 파일이 유효한지
+file_valid = False
 
 if uploaded is not None:
     try:
@@ -125,7 +125,7 @@ st.divider()
 
 # ── 실행 버튼 ──────────────────────────────────────────────────────────────────
 if st.button("🚀 파이프라인 실행", type="primary", use_container_width=True):
-    st.session_state.result = None  # 이전 결과 초기화
+    st.session_state.result = None
 
     cfg      = PipelineConfig(top_n=top_n, infer_year=infer_year)
     pipeline = VOCPipeline(cfg)
@@ -134,7 +134,6 @@ if st.button("🚀 파이프라인 실행", type="primary", use_container_width=
     try:
         with st.status("파이프라인 실행 중...", expanded=True) as status:
 
-            # [1/5] 로드
             st.write("📂 [1/5] CSV 로딩")
             if file_valid and uploaded is not None:
                 raw = read_csv_auto(uploaded)
@@ -144,22 +143,18 @@ if st.button("🚀 파이프라인 실행", type="primary", use_container_width=
                 source_label = "기본 샘플 데이터"
             st.write(f"　　→ {source_label}: {len(raw)}행")
 
-            # [2/5] 정제
             st.write(f"🧹 [2/5] 정제: {len(raw)}행 입력")
             cleaned = pipeline.cleaner.clean(raw)
             dup = cleaned.attrs.get("duplicates_removed", 0)
             st.write(f"　　→ {len(cleaned)}행 확정 (중복 {dup}건 제거)")
 
-            # [3/5] 분류
             st.write("🏷️ [3/5] 분류: 유형 · 감정 · 요약 컬럼 추가")
             classified = pipeline.classifier.apply(cleaned)
             classified = pipeline.priority.score_all(classified)
 
-            # [4/5] 우선순위
             st.write(f"🎯 [4/5] 우선순위: Priority Score 산정 → TOP {top_n} 선정")
             top_n_df = pipeline.priority.get_top_n(classified)
 
-            # [5/5] 저장
             st.write(f"💾 [5/5] 저장: {OUTPUT_DIR}/")
             out_path = Path(OUTPUT_DIR)
             out_path.mkdir(parents=True, exist_ok=True)
@@ -213,11 +208,9 @@ if result is None:
     )
 
 else:
-    # 경고 메시지
     for w in result.warnings:
         st.warning(w)
 
-    # ── 요약 지표 ──────────────────────────────────────────────────────────────
     type_counts = result.df["유형분류"].value_counts()
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("전체 처리 건수", f"{len(result.df)}건")
@@ -227,7 +220,6 @@ else:
 
     st.divider()
 
-    # ── 유형별 분포 + 집계 테이블 ──────────────────────────────────────────────
     col_l, col_r = st.columns(2)
     with col_l:
         st.subheader("유형별 분포")
@@ -238,7 +230,6 @@ else:
 
     st.divider()
 
-    # ── 즉시대응 TOP-N ──────────────────────────────────────────────────────────
     st.subheader(f"🔴 즉시대응 TOP {len(result.top_n)}")
     top_cols = [
         c for c in
@@ -259,13 +250,11 @@ else:
 
     st.divider()
 
-    # ── 전체 분류 결과 ──────────────────────────────────────────────────────────
     with st.expander(f"전체 분류 결과 ({len(result.df)}건)", expanded=False):
         st.dataframe(result.df, use_container_width=True, hide_index=True)
 
     st.divider()
 
-    # ── 다운로드 버튼 ──────────────────────────────────────────────────────────
     st.subheader("📥 결과 파일 다운로드")
     out = Path(result.output_dir)
     d1, d2, d3 = st.columns(3)
