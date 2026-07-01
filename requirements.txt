@@ -5,6 +5,7 @@
 #   pip install -r requirements.txt
 
 pandas>=2.0.0
+streamlit>=1.35.0
 
 # ── 나머지 모듈은 모두 Python 표준 라이브러리 ──
 # re, json, sys, argparse, pathlib, dataclasses,
