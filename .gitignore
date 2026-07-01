@@ -1,0 +1,62 @@
+# ── Python 캐시 & 빌드 산출물 ─────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.spec
+
+# ── 가상 환경 ──────────────────────────────────────
+venv/
+env/
+.venv/
+.env/
+
+# ── 환경 변수 파일 ──────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── IDE / 에디터 ────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.suo
+.project
+.classpath
+
+# ── OS 시스템 파일 ──────────────────────────────────
+.DS_Store
+.DS_Store?
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+ehthumbs.db
+
+# ── Claude Code 개인 설정 (프로젝트와 무관) ──────────
+.claude/
+.claude.json
+CLAUDE.md
+.node_repl_history
+
+# ── 파이프라인 생성 산출물 (재실행으로 복원 가능) ─────
+# 원본 입력 데이터(data/)는 포함, 출력 결과만 제외
+cleaned_voc.csv
+final_submission/data/06_cleaned_voc.csv
+final_submission/output/08_report.json
+final_submission/output/report_summary.md
+
+# ── 로그 & 임시 파일 ────────────────────────────────
+*.log
+*.tmp
+*.temp
+*.bak
+
+# ── Jupyter Notebook 체크포인트 ──────────────────────
+.ipynb_checkpoints/
+*.ipynb

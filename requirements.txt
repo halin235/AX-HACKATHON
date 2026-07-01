@@ -1,0 +1,11 @@
+# VOC 자동 분류 파이프라인 — 외부 의존성
+# Python 3.8+ 호환 (개발 환경: Python 3.14.6)
+#
+# 설치 명령어:
+#   pip install -r requirements.txt
+
+pandas>=2.0.0
+
+# ── 나머지 모듈은 모두 Python 표준 라이브러리 ──
+# re, json, sys, argparse, pathlib, dataclasses,
+# typing, datetime → 별도 설치 불필요
