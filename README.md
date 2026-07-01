@@ -179,3 +179,16 @@ final_submission/
 ---
 
 *분석 기간: 2026-05-04 ~ 2026-06-30 · 총 VOC: 300건 · 즉시대응 TOP 3 자동 선별*
+
+기술 스택 추가: Streamlit, Pandas, GitHub Actions(자동 배포)
+
+핵심 해결 과제:
+
+대용량 VOC 데이터의 효율적 정제 및 분류 (Python 파이프라인)
+
+사용자가 직접 데이터를 업로드할 수 있는 웹 기반 인터페이스 구축 (Streamlit)
+
+코드 수정 즉시 클라우드에 반영되는 자동 배포 환경 구축 (DevOps 경험)
+
+실행 결과: 라이브 데모 링크: https://voc-pipeline.streamlit.app/
+
